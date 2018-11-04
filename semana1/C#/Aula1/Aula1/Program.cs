@@ -15,77 +15,76 @@ namespace Aula2
 		static void Main(string[] args)
 		{
 
-			PontoFixo(1997.01);
+			PontoFixo(1997.01, 10);
+
+			PontoFixo(110011, 10);
+			PontoFixo(110011, 2);
+			//ConvertBinDec();
 
 			Console.ReadKey();
 		}
 
-		private static void PontoFixo(double v)
+		private static bool PontoFixo(double value, int _base)
 		{
-
-			Console.WriteLine(v);
+			Console.WriteLine(value);
 			Console.WriteLine();
 
-			var s = v.ToString().Split(",");
+			if (value == 0) return false;
 
-			string[] cp = new string[s[0].ToString().Length];
-			string[] cm = new string[s[1].ToString().Length];
-			string[] dp = new string[s[0].ToString().Length];
-			string[] dm = new string[s[1].ToString().Length];
+			var splitValue = value.ToString().Split(",");
 
-			for (var i = 0; i < cp.Length; i++)
-			{
-				cp[i] = $"{s[0].ToString().Substring(i, 1)}x10^{cp.Length - i - 1}";
-				//Console.WriteLine($"{i}:{cp[i]}");
-			}
+			int positiveLength = splitValue[0].Length;
+			int negativeLength = 0;
+			if (splitValue.Length > 1) negativeLength = splitValue[1].Length;
 
-
-			for (var i = 0; i < cm.Length; i++)
-			{
-				cp[i] = $"{s[1].ToString().Substring(i, 1)}x10^{(i + 1) * -1}";
-				//Console.WriteLine($"{i}:{cp[i]}");
-			}
+			string[] positivePart = new string[positiveLength];
+			string[] negativePart = new string[negativeLength];
 
 			string p = "";
 
-			for (var i = 0; i < cp.Length; i++)
-			{ p += $"{s[0].ToString().Substring(i, 1)}x10^{cp.Length - i - 1}+"; }
+			#region Print
+			for (var i = 0; i < positivePart.Length; i++)
+			{ p += $"{GetExpoentPositiveValueForPrint(splitValue, positivePart.Length, i, _base)}+"; }
 
-			for (var i = 0; i < cm.Length; i++)
-			{ p += $"{s[1].ToString().Substring(i, 1)}x10^{(i + 1) * -1}+"; }
+			for (var i = 0; i < negativePart.Length; i++)
+			{ p += $"{GetExpoentNegativeValueForPrint(splitValue, i, _base)}+"; }
 
 			p = p.Substring(0, p.Length - 1);
 
 			Console.WriteLine(p);
+			#endregion
 
 			Console.WriteLine();
 
-			for (var i = 0; i < dp.Length; i++)
-			{
-				dp[i] = $"{s[0].ToString().Substring(i, 1)}x{Math.Pow(10, dp.Length - i - 1)}";
-				//Console.WriteLine($"{i}:{dp[i]}");
-			}
-
-			for (var i = 0; i < dm.Length; i++)
-			{
-				dp[i] = $"{s[1].ToString().Substring(i, 1)}x{Math.Pow(10, (i + 1) * -1)}";
-				//Console.WriteLine($"{i}:{dp[i]}");
-			}
-
+			#region Calc
 			p = "";
 
-			for (var i = 0; i < dp.Length; i++)
-			{ p += $"{s[0].ToString().Substring(i, 1)}x{Math.Pow(10, dp.Length - i - 1)}+"; }
+			for (var i = 0; i < positivePart.Length; i++)
+			{ p += $"{GetExpoentPositiveValueForCalc(splitValue, positivePart.Length, i, _base)}+"; }
 
-			for (var i = 0; i < cm.Length; i++)
-			{ p += $"{s[1].ToString().Substring(i, 1)}x{Math.Pow(10, (i + 1) * -1)}+"; }
+			for (var i = 0; i < negativePart.Length; i++)
+			{ p += $"{GetExpoentNegativeValueForCalc(splitValue, i, _base)}+"; }
 
 			p = p.Substring(0, p.Length - 1);
 
 			Console.WriteLine(p);
+			#endregion
 
 			Console.WriteLine();
 
+			return true;
 		}
+
+		private static string GetExpoentPositiveValueForPrint(string[] splitValue, int length, int i, int _base)
+		{ return $"{splitValue[0].ToString().Substring(i, 1)}x{_base}^{length - i - 1}"; }
+
+		private static string GetExpoentNegativeValueForPrint(string[] splitValue, int i, int _base)
+		{ return $"{splitValue[0].ToString().Substring(i, 1)}x{_base}^{(i + 1) * -1}"; }
+
+		private static string GetExpoentPositiveValueForCalc(string[] splitValue, int length, int i, int _base)
+		{ return $"{splitValue[0].ToString().Substring(i, 1)}*{Math.Pow(_base, length - i - 1)}"; }
+
+		private static string GetExpoentNegativeValueForCalc(string[] splitValue, int i, int _base)
+		{ return $"{splitValue[0].ToString().Substring(i, 1)}*{Math.Pow(_base, (i + 1) * -1)}"; }
 	}
 }
