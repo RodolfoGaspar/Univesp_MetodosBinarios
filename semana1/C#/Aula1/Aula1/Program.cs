@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 /* 
  * criar funções
@@ -8,83 +9,42 @@
 
 
 
-namespace Aula2
+namespace MetodosNumericos
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
 
-			PontoFixo(1997.01, 10);
+			var a1 = new Aula1();
+			a1.Numero = 1997.01;
+			a1.BaseNumerica = 10;
 
-			PontoFixo(110011, 10);
-			PontoFixo(110011, 2);
-			//ConvertBinDec();
+			if (a1.PontoFixo())
+			{
+				Console.WriteLine(a1.Expression);
+
+				a1.Compute();
+
+				Console.WriteLine(a1.NumeroCalculado);
+			}
+
+
+			//string expression = string.Empty;
+
+			//PontoFixo(1997.01, 10, out expression);
+
+			//var dt = new DataTable();
+
+			//Console.WriteLine(dt.Compute(expression.Replace(",", "."), string.Empty));
+
+			//PontoFixo(110011, 10, out expression);
+			//Console.WriteLine(dt.Compute(expression.Replace(",", "."), string.Empty));
+			//PontoFixo(110011, 2, out expression);
+			//Console.WriteLine(dt.Compute(expression.Replace(",", "."), string.Empty));
+			////ConvertBinDec();
 
 			Console.ReadKey();
 		}
-
-		private static bool PontoFixo(double value, int _base)
-		{
-			Console.WriteLine(value);
-			Console.WriteLine();
-
-			if (value == 0) return false;
-
-			var splitValue = value.ToString().Split(",");
-
-			int positiveLength = splitValue[0].Length;
-			int negativeLength = 0;
-			if (splitValue.Length > 1) negativeLength = splitValue[1].Length;
-
-			string[] positivePart = new string[positiveLength];
-			string[] negativePart = new string[negativeLength];
-
-			string p = "";
-
-			#region Print
-			for (var i = 0; i < positivePart.Length; i++)
-			{ p += $"{GetExpoentPositiveValueForPrint(splitValue, positivePart.Length, i, _base)}+"; }
-
-			for (var i = 0; i < negativePart.Length; i++)
-			{ p += $"{GetExpoentNegativeValueForPrint(splitValue, i, _base)}+"; }
-
-			p = p.Substring(0, p.Length - 1);
-
-			Console.WriteLine(p);
-			#endregion
-
-			Console.WriteLine();
-
-			#region Calc
-			p = "";
-
-			for (var i = 0; i < positivePart.Length; i++)
-			{ p += $"{GetExpoentPositiveValueForCalc(splitValue, positivePart.Length, i, _base)}+"; }
-
-			for (var i = 0; i < negativePart.Length; i++)
-			{ p += $"{GetExpoentNegativeValueForCalc(splitValue, i, _base)}+"; }
-
-			p = p.Substring(0, p.Length - 1);
-
-			Console.WriteLine(p);
-			#endregion
-
-			Console.WriteLine();
-
-			return true;
-		}
-
-		private static string GetExpoentPositiveValueForPrint(string[] splitValue, int length, int i, int _base)
-		{ return $"{splitValue[0].ToString().Substring(i, 1)}x{_base}^{length - i - 1}"; }
-
-		private static string GetExpoentNegativeValueForPrint(string[] splitValue, int i, int _base)
-		{ return $"{splitValue[0].ToString().Substring(i, 1)}x{_base}^{(i + 1) * -1}"; }
-
-		private static string GetExpoentPositiveValueForCalc(string[] splitValue, int length, int i, int _base)
-		{ return $"{splitValue[0].ToString().Substring(i, 1)}*{Math.Pow(_base, length - i - 1)}"; }
-
-		private static string GetExpoentNegativeValueForCalc(string[] splitValue, int i, int _base)
-		{ return $"{splitValue[0].ToString().Substring(i, 1)}*{Math.Pow(_base, (i + 1) * -1)}"; }
 	}
 }
