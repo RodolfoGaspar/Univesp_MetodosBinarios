@@ -16,9 +16,11 @@ namespace MetodosNumericos
 		static void Main(string[] args)
 		{
 
-			var a1 = new Aula1();
-			a1.Numero = 1997.01;
-			a1.BaseNumerica = 10;
+			var a1 = new Aula1
+			{
+				Numero = 1997.01,
+				BaseNumerica = 10
+			};
 
 			if (a1.PontoFixo())
 			{
@@ -29,20 +31,12 @@ namespace MetodosNumericos
 				Console.WriteLine(a1.NumeroCalculado);
 			}
 
+			var a2 = new Aula2
+			{
+				Numero = 110011
+			};
 
-			//string expression = string.Empty;
-
-			//PontoFixo(1997.01, 10, out expression);
-
-			//var dt = new DataTable();
-
-			//Console.WriteLine(dt.Compute(expression.Replace(",", "."), string.Empty));
-
-			//PontoFixo(110011, 10, out expression);
-			//Console.WriteLine(dt.Compute(expression.Replace(",", "."), string.Empty));
-			//PontoFixo(110011, 2, out expression);
-			//Console.WriteLine(dt.Compute(expression.Replace(",", "."), string.Empty));
-			////ConvertBinDec();
+			a2.ConvertBinDec();
 
 			Console.ReadKey();
 		}

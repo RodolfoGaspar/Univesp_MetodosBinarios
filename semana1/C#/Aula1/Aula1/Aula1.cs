@@ -5,11 +5,8 @@ using System.Text;
 
 namespace MetodosNumericos
 {
-	public class Aula1 
-	{
-		public double Numero { get; internal set; }
-		public object NumeroCalculado { get; internal set; }
-		public string Expression { get; internal set; }
+	public class Aula1 : Base
+	{				
 		public int BaseNumerica { get; set; }
 
 		internal bool PontoFixo()
@@ -61,12 +58,6 @@ namespace MetodosNumericos
 			Console.WriteLine();
 
 			return true;
-		}
-
-		internal void Compute()
-		{
-			var dt = new DataTable();
-			NumeroCalculado = dt.Compute(Expression, string.Empty);
 		}
 
 		private static string GetExpoentPositiveValueForPrint(string[] splitValue, int length, int i, int _base)
