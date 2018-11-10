@@ -15,6 +15,8 @@ namespace MetodosNumericos
 	{
 		static void Main(string[] args)
 		{
+			Console.WriteLine("-=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-");
+			Console.WriteLine("Iniciando...");
 
 			var a1 = new Aula1
 			{
@@ -24,11 +26,7 @@ namespace MetodosNumericos
 
 			if (a1.PontoFixo())
 			{
-				Console.WriteLine(a1.Expression);
-
-				a1.Compute();
-
-				Console.WriteLine(a1.NumeroCalculado);
+				Console.WriteLine($"Resultado: {a1.Result}\n");
 			}
 
 			var a2 = new Aula2
@@ -38,6 +36,12 @@ namespace MetodosNumericos
 
 			a2.ConvertBinDec();
 
+			a2.Numero = a2.Result;
+
+			a2.ConvertDecBin();
+
+			Console.WriteLine("Pronto");
+			Console.WriteLine("-=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=--=#=-");
 			Console.ReadKey();
 		}
 	}
